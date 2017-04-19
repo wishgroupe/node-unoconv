@@ -61,7 +61,7 @@ You can also start a unoconv listener to avoid launching Libre/OpenOffice on eve
 
 ## API
 
-### unoconv.convert(file, outputFormat, [options], callback)
+### unoconv.convert(file, outputFormat, [options])
 
 Converts `file` to the specified `outputFormat`. `options` is an object with the following properties:
 
@@ -80,7 +80,7 @@ Converts `file` to the specified `outputFormat`. `options` is an object with the
 * `timeout` Timeout after seconds if connection to listener fails
 * `verbosity` (1,2,3) how verbose output should be
 
-`callback` gets the arguments `err` and `result`. `result` is returned as a Buffer object.
+`result` is returned as a Buffer object.
 
 Returns a `Promise`
 
