@@ -181,7 +181,7 @@ unoconv.listen = function (options) {
 
     child.on('close', function (code) {
         if (code !== 0 && stderr.length) {
-            return deferred.reject(Buffer.concat(stderr).toString());
+            deferred.reject(Buffer.concat(stderr).toString());
         }
         deferred.resolve(Buffer.concat(stdout));
     });
