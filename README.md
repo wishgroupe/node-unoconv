@@ -24,7 +24,7 @@ Install with:
     unoconv.convert('myfile.docx', options)
       .then(
         function (result) {
-    	     // do some other stuff
+    	    // do some other stuff
         })
       .catch(
         function(e){    
@@ -110,5 +110,13 @@ This function parses the output of `unoconv --show` to attempt to detect support
 `options` is an object with the following properties:
 
 * `bin` Path to the unoconv binary
+
+      unoconv.detectSupportedFormats()
+        .then(function(result){
+          console.log(result);
+        })
+        .catch(function(e){
+          console.error(e);
+        })
 
 Returns a `Promise`
