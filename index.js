@@ -147,6 +147,14 @@ unoconv.convert = function(file, options) {
         deferred.resolve(Buffer.concat(stdout));
     });
 
+    if(options.kill_after){
+      setTimeout(() => {
+        child.kill('SIGKILL');
+        deferred.reject("killed hung process");
+      }, options.kill_after);
+
+    }
+
     return deferred.promise;
 };
 

@@ -71,13 +71,14 @@ Converts `file` to the specified `outputFormat`. `options` is an object with the
 * `format` Specify output format
 * `field` Replace user defined text field with value
 * `import` Set input filter option string
+* `kill_after` Force the process to be killed after specified milliseconds (useful if process gets hung on corrupt document)
 * `nolaunch` Fail if no listener is found
 * `output` Output basename, filename or directory
 * `pipe` Output pipe
 * `preserve` Keep timestamp and permissions of original document
 * `stdout` Write output to stdout
 * `template` Import style from template (.ott) file
-* `timeout` Timeout after seconds if connection to listener fails
+* `timeout` Timeout after specified seconds if connection to listener fails
 * `verbosity` (1,2,3) how verbose output should be
 
 `result` is returned as a Buffer object.
