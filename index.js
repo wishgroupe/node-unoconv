@@ -156,7 +156,7 @@ unoconv.convert = function(file, options) {
         if(!done){
           process.kill(-child.pid)
           //child.kill('SIGTERM');
-          var child2 = childProcess.spawn('killall soffice.bin');
+          var child2 = childProcess.spawn('/usr/bin/killall soffice.bin');
           child2.stdout.on('data', function (data) {
               console.log("[UNOCONV] -", data);
               stdout.push(data);
