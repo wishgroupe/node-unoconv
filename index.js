@@ -130,7 +130,7 @@ unoconv.convert = function(file, options) {
 
     args.push(file);
 
-    child = childProcess.spawn(bin, args);
+    child = childProcess.spawn(bin, args, {detached: true});
 
     child.stdout.on('data', function (data) {
         stdout.push(data);
@@ -149,8 +149,9 @@ unoconv.convert = function(file, options) {
 
     if(options.kill_after){
       setTimeout(() => {
-        child.kill('SIGTERM');
-        deferred.reject(new Error("killed hung process"));
+        process.kill(-child.pid)
+        //child.kill('SIGTERM');
+        deferred.reject(new Error("killing hung process"));
       }, options.kill_after);
 
     }
