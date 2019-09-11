@@ -117,6 +117,7 @@ unoconv.convert = function(file, options) {
         child,
         stdout = [],
         stderr = [],
+        done = false,
         deferred = Q.defer();
 
     if(!options || !options.format){
@@ -143,6 +144,7 @@ unoconv.convert = function(file, options) {
     });
 
     child.on('close', function (code) {
+        done = true;
         if (code !== 0 && stderr.length) {
           return deferred.reject(Buffer.concat(stderr).toString());
         }
@@ -151,21 +153,23 @@ unoconv.convert = function(file, options) {
 
     if(options.kill_after){
       setTimeout(() => {
-        process.kill(-child.pid)
-        //child.kill('SIGTERM');
-        var child2 = childProcess.spawn('killall soffice.bin');
-        child2.stdout.on('data', function (data) {
-            console.log("[UNOCONV] -", data);
-            stdout.push(data);
-        });
+        if(!done){
+          process.kill(-child.pid)
+          //child.kill('SIGTERM');
+          var child2 = childProcess.spawn('killall soffice.bin');
+          child2.stdout.on('data', function (data) {
+              console.log("[UNOCONV] -", data);
+              stdout.push(data);
+          });
 
-        child2.stderr.on('data', function (data) {
-            console.error("[UNOCONV] -", data);
-            stderr.push(data);
-        });
-        child.on('close', function (code) {
-            deferred.reject(new Error("killing hung process"));
-        });
+          child2.stderr.on('data', function (data) {
+              console.error("[UNOCONV] -", data);
+              stderr.push(data);
+          });
+          child.on('close', function (code) {
+              deferred.reject(new Error("killing hung process"));
+          });
+        }
       }, options.kill_after);
 
     }
