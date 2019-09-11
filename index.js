@@ -133,10 +133,12 @@ unoconv.convert = function(file, options) {
     child = childProcess.spawn(bin, args, {detached: true});
 
     child.stdout.on('data', function (data) {
+        console.log("[UNOCONV] -", data);
         stdout.push(data);
     });
 
     child.stderr.on('data', function (data) {
+        console.error("[UNOCONV] -", data);
         stderr.push(data);
     });
 
@@ -151,7 +153,19 @@ unoconv.convert = function(file, options) {
       setTimeout(() => {
         process.kill(-child.pid)
         //child.kill('SIGTERM');
-        deferred.reject(new Error("killing hung process"));
+        var child2 = childProcess.spawn('killall soffice.bin');
+        child2.stdout.on('data', function (data) {
+            console.log("[UNOCONV] -", data);
+            stdout.push(data);
+        });
+
+        child2.stderr.on('data', function (data) {
+            console.error("[UNOCONV] -", data);
+            stderr.push(data);
+        });
+        child.on('close', function (code) {
+            deferred.reject(new Error("killing hung process"));
+        });
       }, options.kill_after);
 
     }

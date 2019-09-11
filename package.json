@@ -1,6 +1,6 @@
 {
   "name": "unoconv",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Wrapper for converting documents with unoconv.",
   "homepage": "https://github.com/breezy-hr/node-unoconv",
   "author": {
