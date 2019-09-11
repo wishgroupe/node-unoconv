@@ -149,8 +149,8 @@ unoconv.convert = function(file, options) {
 
     if(options.kill_after){
       setTimeout(() => {
-        child.kill('SIGKILL');
-        deferred.reject("killed hung process");
+        child.kill('SIGTERM');
+        deferred.reject(new Error("killed hung process"));
       }, options.kill_after);
 
     }
