@@ -185,7 +185,7 @@ unoconv.convert = function(file, options) {
 * @api public
 */
 unoconv.listen = function (options) {
-    var args = [ '--listener' ];
+    var args = [ '--listener' ],
         bin = 'unoconv',
         deferred = Q.defer();
 
@@ -196,7 +196,7 @@ unoconv.listen = function (options) {
       }
     }
 
-    child = childProcess.spawn(bin, args);
+   var child = childProcess.spawn(bin, args);
 
     child.stdout.on('data', function (data) {
         stdout.push(data);
@@ -222,8 +222,7 @@ unoconv.listen = function (options) {
 * @param {Function} callback
 */
 unoconv.detectSupportedFormats = function (options) {
-    var self = this,
-        docType,
+    var docType,
         detectedFormats = {
             document: [],
             graphics: [],
