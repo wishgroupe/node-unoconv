@@ -187,7 +187,9 @@ unoconv.convert = function(file, options) {
 unoconv.listen = function (options) {
     var args = [ '--listener' ],
         bin = 'unoconv',
-        deferred = Q.defer();
+        deferred = Q.defer(),
+        stdout = [],
+        stderr=[];
 
     if(options){
       args = args.concat(parseOptions(options));
