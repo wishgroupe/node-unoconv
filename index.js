@@ -189,7 +189,7 @@ unoconv.listen = function (options) {
         bin = 'unoconv',
         deferred = Q.defer(),
         stdout = [],
-        stderr=[];
+        stderr = [];
 
     if(options){
       args = args.concat(parseOptions(options));
@@ -212,7 +212,7 @@ unoconv.listen = function (options) {
         if (code !== 0 && stderr.length) {
             deferred.reject(Buffer.concat(stderr).toString());
         }
-        deferred.resolve(Buffer.concat(stdout));
+        deferred.resolve(child);
     });
     return deferred.promise;
 };
